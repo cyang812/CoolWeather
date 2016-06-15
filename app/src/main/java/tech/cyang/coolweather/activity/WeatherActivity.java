@@ -1,7 +1,9 @@
 package tech.cyang.coolweather.activity;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.Window;
@@ -9,7 +11,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import tech.cyang.coolweather.R;
-import tech.cyang.coolweather.model.County;
 import tech.cyang.coolweather.util.HttpCallbackListener;
 import tech.cyang.coolweather.util.HttpUtil;
 import tech.cyang.coolweather.util.Utility;
@@ -30,7 +31,7 @@ public class WeatherActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceSate){
-        super.onCreate();
+        super.onCreate(savedInstanceSate);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.weather_layout);
         weatherInfoLayout = (LinearLayout) findViewById(R.id.weather_info_layout);
@@ -86,7 +87,26 @@ public class WeatherActivity extends Activity {
 
             @Override
             public void onError(Exception e) {
-                
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        publishText.setText("同步失败");
+                    }
+                });
+            }
         });
+    }
+
+
+    private void showWeather(){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        cityNameText.setText(prefs.getString("city_name",""));
+        temp1Text.setText(prefs.getString("temp1",""));
+        temp2Text.setText(prefs.getString("temp2",""));
+        weatherDespText.setText(prefs.getString("weather_desp",""));
+        publishText.setText("今天"+prefs.getString("publish_time","")+"发布");
+        currentDateText.setText(prefs.getString("current_date",""));
+        weatherInfoLayout.setVisibility(View.INVISIBLE);
+        cityNameText.setVisibility(View.VISIBLE);
     }
 }
