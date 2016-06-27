@@ -8,8 +8,8 @@ import android.content.SharedPreferences;
 import android.os.IBinder;
 import android.os.SystemClock;
 import android.preference.PreferenceManager;
-import android.text.style.UpdateLayout;
 
+import tech.cyang.coolweather.receiver.AutoUpdateReceiver;
 import tech.cyang.coolweather.util.HttpCallbackListener;
 import tech.cyang.coolweather.util.HttpUtil;
 import tech.cyang.coolweather.util.Utility;
@@ -30,7 +30,7 @@ public class AutoUpdateService extends Service {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                UpdateWeather();
+                updateWeather();
             }
         }).start();
         AlarmManager manager = (AlarmManager) getSystemService(ALARM_SERVICE);

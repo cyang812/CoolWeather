@@ -13,7 +13,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import tech.cyang.coolweather.R;
-import tech.cyang.coolweather.receiver.AutoUpdateReceiver;
 import tech.cyang.coolweather.service.AutoUpdateService;
 import tech.cyang.coolweather.util.HttpCallbackListener;
 import tech.cyang.coolweather.util.HttpUtil;
@@ -67,7 +66,7 @@ public class WeatherActivity extends Activity implements View.OnClickListener {
         switch (v.getId()){
             case R.id.switch_city:
                 Intent intent = new Intent(this,ChooseAreaActivity.class);
-                intent.putExtra("from_weather_activity",trues);
+                intent.putExtra("from_weather_activity",true);
                 startActivity(intent);
                 finish();
                 break;
