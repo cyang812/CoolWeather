@@ -17,7 +17,7 @@ import tech.cyang.coolweather.db.CoolWeatherOpenHelper;
 public class CoolWeatherDB {
 
     public static final String DB_NAME = "cool_weather";
-    private static final int VERSION = 1;
+    public static final int VERSION = 1;
     private static CoolWeatherDB coolWeatherDB;
     private SQLiteDatabase db;
 
@@ -50,7 +50,7 @@ public class CoolWeatherDB {
             do {
                 Province province = new Province();
                 province.setId(cursor.getInt(cursor.getColumnIndex("id")));
-                province.setProvinceCode(cursor.getString(cursor.getColumnIndex("province_name")));
+                province.setProvinceName(cursor.getString(cursor.getColumnIndex("province_name")));
                 province.setProvinceCode(cursor.getString(cursor.getColumnIndex("province_code")));
                 list.add(province);
             } while (cursor.moveToNext());
