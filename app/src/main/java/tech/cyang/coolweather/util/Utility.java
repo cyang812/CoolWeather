@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
+import android.util.Log;
 
 import org.json.JSONObject;
 
@@ -41,6 +42,7 @@ public class Utility {
 
     public static boolean handleCitiesResponse(CoolWeatherDB coolWeatherDB,String response,int provinceId){
         if (!TextUtils.isEmpty(response)){
+            Log.e("TAG","CCC="+response);
             String[] allCities = response.split(",");
             if (allCities != null && allCities.length > 0){
                 for (String c : allCities){
@@ -59,13 +61,14 @@ public class Utility {
 
     public static boolean handleCountiesResponse(CoolWeatherDB coolWeatherDB,String response,int cityId){
         if (!TextUtils.isEmpty(response)){
+            Log.e("TAG","DDD="+response);
             String[] allCounties = response.split(",");
             if (allCounties != null && allCounties.length > 0){
                 for (String c : allCounties){
                     String[] array = c.split("\\|");
                     County county = new County();
                     county.setCountyCode(array[0]);
-                    county.setCountyCode(array[1]);
+                    county.setCountyName(array[1]);
                     county.setCityId(cityId);
                     coolWeatherDB.saveCounty(county);
                 }

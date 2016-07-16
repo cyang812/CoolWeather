@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
@@ -117,6 +118,7 @@ public class ChooseAreaActivity extends Activity{
             for (City city : cityList){
                 dataList.add(city.getCityName());
             }
+            Log.e("TAG","datalist="+ dataList.toString());
             adapter.notifyDataSetChanged();
             listView.setSelection(0);
             titleText.setText(selectedProvince.getProvinceName());
@@ -128,10 +130,14 @@ public class ChooseAreaActivity extends Activity{
 
     private void queryCounties(){
         countyList = coolWeatherDB.loadCounties(selectedCity.getId());
+        Log.e("TAG","AAA="+countyList.toString());
         if (countyList.size() > 0){
             dataList.clear();
-            for (County county : countyList){
-                dataList.add(county.getCountyName());
+            if (countyList!=null){
+                for (County county : countyList){
+                    dataList.add(county.getCountyName());
+                }
+//                Log.e("TAG","datalist="+ dataList.toString());
             }
             adapter.notifyDataSetChanged();
             listView.setSelection(0);
@@ -142,7 +148,7 @@ public class ChooseAreaActivity extends Activity{
         }
     }
 
-    private void queryFromServer(final  String code,final String type){
+    private void queryFromServer(final String code, final String type){
         String address;
         if (!TextUtils.isEmpty(code)){
             address = "http://www.weather.com.cn/data/list3/city"+code+".xml";
