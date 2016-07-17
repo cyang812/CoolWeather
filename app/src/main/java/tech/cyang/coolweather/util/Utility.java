@@ -80,13 +80,17 @@ public class Utility {
 
     public static void handleWeatherResponse(Context context,String response){
         try{
+            Log.e("TAG","WWW="+response);
             JSONObject jsonObject = new JSONObject(response);
             JSONObject weatherInfo = jsonObject.getJSONObject("weatherinfo");
             String cityName = weatherInfo.getString("city");
             String weatherCode = weatherInfo.getString("cityid");
             String temp1 = weatherInfo.getString("temp1");
             String temp2 = weatherInfo.getString("temp2");
+            Log.e("TAG","HH1="+temp1);
+            Log.e("TAG","HH2="+temp2);
             String weatherDesp = weatherInfo.getString("weather");
+            Log.e("TAG","HH3="+weatherDesp);
             String publishTime = weatherInfo.getString("ptime");
             saveWeatherInfo(context,cityName,weatherCode,temp1,temp2,weatherDesp,publishTime);
         }catch (Exception e){
@@ -104,8 +108,12 @@ public class Utility {
         editor.putString("temp1",temp1);
         editor.putString("temp2",temp2);
         editor.putString("weather_desp",weatherDesp);
+        Log.e("TAG","H11="+temp1);
+        Log.e("TAG","H22="+temp2);
+        Log.e("TAG","H33="+weatherDesp);
         editor.putString("publish_time",publishTime);
         editor.putString("current_date",sdf.format(new Date()));
+        Log.e("TAG","H44="+sdf.format(new Date()));
         editor.commit();
     }
 }

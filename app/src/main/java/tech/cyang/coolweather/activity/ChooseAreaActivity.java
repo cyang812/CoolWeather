@@ -133,12 +133,10 @@ public class ChooseAreaActivity extends Activity{
         Log.e("TAG","AAA="+countyList.toString());
         if (countyList.size() > 0){
             dataList.clear();
-            if (countyList!=null){
-                for (County county : countyList){
-                    dataList.add(county.getCountyName());
-                }
-//                Log.e("TAG","datalist="+ dataList.toString());
+            for (County county : countyList){
+                dataList.add(county.getCountyName());
             }
+            Log.e("TAG","datalist="+ dataList.toString());
             adapter.notifyDataSetChanged();
             listView.setSelection(0);
             titleText.setText(selectedCity.getCityName());
